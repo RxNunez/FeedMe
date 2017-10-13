@@ -3,7 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.epicodus.feedme.MainActivity">
+    tools:context="com.epicodus.feedme.MainActivity"
+    android:background="#000000">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/textView"
@@ -14,15 +22,16 @@
         android:layout_marginTop="35dp"
         android:text="FeedMe"
         android:textColor="@color/colorTextIcons"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Find Information"
-        android:id="@+id/button"
-        android:background="@color/colorAccent"
-        android:textColor="@color/colorTextIcons"
+        android:id="@+id/findInformationButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorTextIcons" />
 </RelativeLayout>
