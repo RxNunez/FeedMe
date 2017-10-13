@@ -10,20 +10,20 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private Button mFindInformationButton;
-    private EditText mInterestEditText
+    private EditText mInterestEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mInterestEditText = (EditText) findViewById(R.id.InterestEditText);
+        mInterestEditText = (EditText) findViewById(R.id.interestEditText);
         mFindInformationButton = (Button) findViewById(R.id.findInformationButton);
         mFindInformationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String interest = mInterestEditText.getText().toString();
                 Intent intent = new Intent(MainActivity.this, FeedMeActivity.class);
-                intent.putExtra("Interest", Interest);
+                intent.putExtra("interest", interest);
                 startActivity(intent);
             }
         });

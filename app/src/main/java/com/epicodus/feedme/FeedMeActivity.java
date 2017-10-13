@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 public class FeedMeActivity extends AppCompatActivity {
+    public static final String TAG = FeedMeActivity.class.getSimpleName();
     private TextView mInterestTextView;
 
     @Override
