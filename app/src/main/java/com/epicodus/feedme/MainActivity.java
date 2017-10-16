@@ -14,13 +14,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     @Bind(R.id.findInformationButton) Button mFindInformationButton;
     @Bind(R.id.interestEditText) EditText mInterestEditText;
     @Bind(R.id.appNameTextView) TextView mAppNameTextView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
         Typeface PacificoFont = Typeface.createFromAsset(getAssets(), "fonts/Pacifico.ttf");
         mAppNameTextView.setTypeface(PacificoFont);
 
-        mFindInformationButton.setOnClickListener(new View.OnClickListener() {
+        mFindInformationButton.setOnClickListener(this);
+    }
             @Override
             public void onClick(View v) {
             String interest = mInterestEditText.getText().toString();
@@ -36,6 +37,6 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("interest", interest);
             startActivity(intent);
             }
-        });
+
     }
-}
+
