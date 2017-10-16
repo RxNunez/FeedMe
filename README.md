@@ -36,6 +36,7 @@ git clone (https://github.com/RxNunez/FeedMe.git)_
 * _xxx._
 
 ## Known Bugs
+
 * _User activity not yet linked to main activity_
 
 ## Support and contact details
