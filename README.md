@@ -39,7 +39,6 @@ git clone (https://github.com/RxNunez/FeedMe.git)_
 
 * _User activity not yet linked to main activity_
 
-
 ## Support and contact details
 
 _If you have any questions or suggestions. Please free to contact us._
