@@ -22,6 +22,7 @@ public class FeedMeActivity extends AppCompatActivity {
             "Columbia", "Spain", "Australia", "Brazil",
             "Korea", "Philipines", "Venezula",
             "France", "Middle East"};
+    private String[] cuisines = new String[] {"Vegan Food", "Breakfast", "Fishs Dishs", "Scandinavian", "Coffee", "English Food", "Burgers", "Fast Food", "Noodle Soups", "Mexican", "BBQ", "Cuban", "Bar Food", "Sports Bar", "Breakfast" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class FeedMeActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listView);
         mInterestTextView = (TextView) findViewById(R.id.interestTextView);
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, information);
+        FeedMeArrayAdapter adapter = new FeedMeArrayAdapter(this, android.R.layout.simple_list_item_1, information, cuisines);
         mListView.setAdapter(adapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()  {
