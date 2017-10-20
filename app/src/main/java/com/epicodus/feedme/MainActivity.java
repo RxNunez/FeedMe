@@ -14,13 +14,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    @Bind(R.id.findInformationButton) Button mFindInformationButton;
-    @Bind(R.id.interestEditText) EditText mInterestEditText;
-    @Bind(R.id.appNameTextView) TextView mAppNameTextView;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    @Bind(R.id.findFoodtrucksButton)
+    Button mFindFoodtrucksButton;
+    @Bind(R.id.locationEditText)
+    EditText mLocationEditText;
+    @Bind(R.id.appNameTextView)
+    TextView mAppNameTextView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -28,15 +31,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Typeface PacificoFont = Typeface.createFromAsset(getAssets(), "fonts/Pacifico.ttf");
         mAppNameTextView.setTypeface(PacificoFont);
 
-        mFindInformationButton.setOnClickListener(this);
+        mFindFoodtrucksButton.setOnClickListener(this);
     }
-            @Override
-            public void onClick(View v) {
-            String interest = mInterestEditText.getText().toString();
-            Intent intent = new Intent(MainActivity.this, FeedMeActivity.class);
-            intent.putExtra("interest", interest);
-            startActivity(intent);
-            }
 
+    @Override
+    public void onClick(View v) {
+        if (v == mFindFoodtrucksButton) {
+            String location = mLocationEditText.getText().toString();
+            Intent intent = new Intent(MainActivity.this, FeedMeActivity.class);
+            intent.putExtra("location", location);
+            startActivity(intent);
+        }
     }
+}
+
 

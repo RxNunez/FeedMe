@@ -28,19 +28,19 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/interestEditText"
+        android:id="@+id/locationEditText"
         android:background="@color/colorTextIcons"
-        android:layout_above="@+id/findInformationButton"
+        android:layout_above="@+id/findFoodtrucksButton"
         android:layout_marginBottom="10dp"
         android:padding="5dp"
-        android:hint="Enter Your Interest"
+        android:hint="Enter Your location"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Find Information"
-        android:id="@+id/findInformationButton"
+        android:text="Find Foodtrucks"
+        android:id="@+id/findFoodtrucksButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
