@@ -3,11 +3,15 @@ package com.epicodus.feedme;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.epicodus.feedme.R;
+import com.epicodus.feedme.adapters.FoodtruckListAdapter;
 import com.epicodus.feedme.models.Foodtruck;
 import com.epicodus.feedme.services.YelpService;
 
@@ -23,8 +27,8 @@ import okhttp3.Response;
 public class FeedMeActivity extends AppCompatActivity {
     public static final String TAG = FeedMeActivity.class.getSimpleName();
 
-    @Bind(R.id.locationTextView) TextView mLocationTextView;
-    @Bind(R.id.listView) ListView mListView;
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    private FoodtruckListAdapter mAdapter;
 
     public ArrayList<Foodtruck> foodtrucks = new ArrayList<>();
 
@@ -37,13 +41,13 @@ public class FeedMeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
 
-        mLocationTextView.setText("Here are the foodtrucks you requested: " + location);
         getFoodtrucks(location);
     }
 
     private void getFoodtrucks(String location) {
         final YelpService yelpService = new YelpService();
         yelpService.findFoodtrucks(location, new Callback() {
+
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -58,22 +62,12 @@ public class FeedMeActivity extends AppCompatActivity {
 
                     @Override
                     public void run() {
-                        String[] foodtruckNames = new String[foodtrucks.size()];
-                        for (int i = 0; i < foodtruckNames.length; i++) {
-                            foodtruckNames[i] = foodtrucks.get(i).getName();
-                        }
-                        ArrayAdapter adapter = new ArrayAdapter(FeedMeActivity.this,
-                                android.R.layout.simple_list_item_1, foodtruckNames);
-                        mListView.setAdapter(adapter);
-                        for (Foodtruck foodtruck : foodtrucks) {
-                            Log.d(TAG, "Name: " + foodtruck.getName());
-                            Log.d(TAG, "Phone: " + foodtruck.getPhone());
-                            Log.d(TAG, "Website: " + foodtruck.getWebsite());
-                            Log.d(TAG, "Image url: " + foodtruck.getImageUrl());
-                            Log.d(TAG, "Rating: " + Double.toString(foodtruck.getRating()));
-                            Log.d(TAG, "Address: " + android.text.TextUtils.join(", ", foodtruck.getAddress()));
-                            Log.d(TAG, "Categories: " + foodtruck.getCategories().toString());
-                        }
+                        mAdapter = new FoodtruckListAdapter(getApplicationContext(), foodtrucks);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager =
+                                new LinearLayoutManager(FeedMeActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
                     }
 
                 });
