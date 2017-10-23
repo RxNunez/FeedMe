@@ -1,4 +1,7 @@
-package com.epicodus.feedme;
+package com.epicodus.feedme.services;
+
+import com.epicodus.feedme.Constants;
+import com.epicodus.feedme.models.Foodtruck;
 
 import org.json.JSONArray;
 import org.json.JSONException;

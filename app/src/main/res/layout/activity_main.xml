@@ -7,11 +7,12 @@
     android:background="#000000">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/imageView"
-        android:src="@drawable/background"
-        android:scaleType="centerCrop" />
+        android:background="@color/colorPrimaryLight"
+        android:scaleType="fitCenter"
+        android:src="@drawable/background" />
 
     <TextView
         android:id="@+id/appNameTextView"

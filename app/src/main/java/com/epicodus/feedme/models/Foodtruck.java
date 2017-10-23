@@ -1,4 +1,4 @@
-package com.epicodus.feedme;
+package com.epicodus.feedme.models;
 
 
 import java.util.ArrayList;

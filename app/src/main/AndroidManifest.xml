@@ -25,7 +25,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.epicodus.feedme.MainActivity" />
         </activity>
-        <activity android:name=".UserActivity"></activity>
     </application>
 
 </manifest>
