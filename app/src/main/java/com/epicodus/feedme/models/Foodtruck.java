@@ -1,8 +1,9 @@
 package com.epicodus.feedme.models;
 
-
+import org.parceler.Parcel;
 import java.util.ArrayList;
 
+@Parcel
 public class Foodtruck {
     private String name;
     private String phone;
@@ -13,6 +14,7 @@ public class Foodtruck {
     private double latitude;
     private double longitude;
     private ArrayList<String> categories = new ArrayList<>();
+    public Foodtruck() {}
 
     public Foodtruck(String name, String phone, String website,
                       double rating, String imageUrl, ArrayList<String> address,
@@ -63,5 +65,6 @@ public class Foodtruck {
     public ArrayList<String> getCategories() {
         return categories;
     }
-}
 
+
+}

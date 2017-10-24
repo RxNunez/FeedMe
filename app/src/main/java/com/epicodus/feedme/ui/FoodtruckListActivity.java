@@ -42,7 +42,7 @@ public class FoodtruckListActivity extends AppCompatActivity {
 
     private void getFoodtrucks(String location) {
         final YelpService yelpService = new YelpService();
-        YelpService.findFoodtrucks(location, new Callback() {
+        yelpService.findFoodtrucks(location, new Callback() {
 
 
             @Override
@@ -55,7 +55,6 @@ public class FoodtruckListActivity extends AppCompatActivity {
                 foodtrucks = yelpService.processResults(response);
 
                 FoodtruckListActivity.this.runOnUiThread(new Runnable() {
-
                     @Override
                     public void run() {
                         mAdapter = new FoodtruckListAdapter(getApplicationContext(), foodtrucks);
