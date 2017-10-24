@@ -6,10 +6,9 @@
     <ImageView
         android:layout_width="130dp"
         android:layout_height="100dp"
-        android:id="@+id/foodtruckImageView"
+        android:id="@+id/restaurantImageView"
         android:src="@drawable/food"
-        android:scaleType="centerCrop"
-        />
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -21,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/foodtruckNameTextView"
+            android:id="@+id/restaurantNameTextView"
             android:textSize="20dp"
             android:textStyle="bold"
             android:text="Foodtruck Name"

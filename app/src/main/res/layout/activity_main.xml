@@ -34,7 +34,7 @@
         android:layout_above="@+id/findFoodtrucksButton"
         android:layout_marginBottom="10dp"
         android:padding="5dp"
-        android:hint="Enter Your location"
+        android:hint="Enter Your Zip Code"
         android:layout_centerHorizontal="true" />
 
     <Button
