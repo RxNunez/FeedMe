@@ -3,6 +3,8 @@ package com.epicodus.feedme;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
+import com.epicodus.feedme.ui.FoodtruckListActivity;
+
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -17,10 +19,10 @@ import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.core.IsNot.not;
 
 
-public class FeedMeActivityInstrumentationTest {
+public class FoodtruckListActivityInstrumentationTest {
     @Rule
-    public ActivityTestRule<FeedMeActivity> activityTestRule =
-            new ActivityTestRule<>(FeedMeActivity.class);
+    public ActivityTestRule<FoodtruckListActivity> activityTestRule =
+            new ActivityTestRule<>(FoodtruckListActivity.class);
     @Test
     public void listItemClickDisplaysToastWithCorrectRestaurant() {
         View activityDecorView = activityTestRule.getActivity().getWindow().getDecorView();

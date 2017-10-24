@@ -1,14 +1,10 @@
-package com.epicodus.feedme;
+package com.epicodus.feedme.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.epicodus.feedme.R;
 import com.epicodus.feedme.adapters.FoodtruckListAdapter;
@@ -24,8 +20,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class FeedMeActivity extends AppCompatActivity {
-    public static final String TAG = FeedMeActivity.class.getSimpleName();
+public class FoodtruckListActivity extends AppCompatActivity {
+    public static final String TAG = FoodtruckListActivity.class.getSimpleName();
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     private FoodtruckListAdapter mAdapter;
@@ -46,7 +42,7 @@ public class FeedMeActivity extends AppCompatActivity {
 
     private void getFoodtrucks(String location) {
         final YelpService yelpService = new YelpService();
-        yelpService.findFoodtrucks(location, new Callback() {
+        YelpService.findFoodtrucks(location, new Callback() {
 
 
             @Override
@@ -58,14 +54,14 @@ public class FeedMeActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response){
                 foodtrucks = yelpService.processResults(response);
 
-                FeedMeActivity.this.runOnUiThread(new Runnable() {
+                FoodtruckListActivity.this.runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
                         mAdapter = new FoodtruckListAdapter(getApplicationContext(), foodtrucks);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager =
-                                new LinearLayoutManager(FeedMeActivity.this);
+                                new LinearLayoutManager(FoodtruckListActivity.this);
                         mRecyclerView.setLayoutManager(layoutManager);
                         mRecyclerView.setHasFixedSize(true);
                     }
@@ -75,3 +71,4 @@ public class FeedMeActivity extends AppCompatActivity {
         });
     }
 }
+

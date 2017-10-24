@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.epicodus.feedme.R;
 import com.epicodus.feedme.models.Foodtruck;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -58,6 +59,7 @@ public class FoodtruckListAdapter extends RecyclerView.Adapter<FoodtruckListAdap
         }
 
         public void bindFoodtruck(Foodtruck foodtruck) {
+            Picasso.with(mContext).load(foodtruck.getImageUrl()).into(mFoodtruckImageView);
             mNameTextView.setText(foodtruck.getName());
             mCategoryTextView.setText(foodtruck.getCategories().get(0));
             mRatingTextView.setText("Rating: " + foodtruck.getRating() + "/5");

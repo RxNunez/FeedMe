@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.epicodus.feedme.MainActivity"
+    tools:context="com.epicodus.feedme.ui.MainActivity"
     android:background="#000000">
 
     <ImageView
