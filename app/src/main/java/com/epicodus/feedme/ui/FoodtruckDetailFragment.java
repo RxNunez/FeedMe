@@ -54,7 +54,11 @@ public class FoodtruckDetailFragment extends Fragment implements View.OnClickLis
         View view = inflater.inflate(R.layout.fragment_foodtruck_detail, container, false);
         ButterKnife.bind(this, view);
 
-        Picasso.with(view.getContext()).load(mFoodtruck.getImageUrl()).resize(MAX_WIDTH, MAX_HEIGHT).centerCrop().into(mImageLabel);
+        Picasso.with(view.getContext())
+                .load(mFoodtruck.getImageUrl())
+                .resize(MAX_WIDTH, MAX_HEIGHT)
+                .centerCrop()
+                .into(mImageLabel);
 
         mNameLabel.setText(mFoodtruck.getName());
         mCategoriesLabel.setText(android.text.TextUtils.join(", ", mFoodtruck.getCategories()));
