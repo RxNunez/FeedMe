@@ -54,7 +54,11 @@ public class FoodtruckDetailFragment extends Fragment implements View.OnClickLis
         View view = inflater.inflate(R.layout.fragment_foodtruck_detail, container, false);
         ButterKnife.bind(this, view);
 
-        Picasso.with(view.getContext()).load(mFoodtruck.getImageUrl()).resize(MAX_WIDTH, MAX_HEIGHT).centerCrop().into(mImageLabel);
+        Picasso.with(view.getContext())
+                .load(mFoodtruck.getImageUrl())
+                .resize(MAX_WIDTH, MAX_HEIGHT)
+                .centerCrop()
+                .into(mImageLabel);
 
         mNameLabel.setText(mFoodtruck.getName());
         mCategoriesLabel.setText(android.text.TextUtils.join(", ", mFoodtruck.getCategories()));
@@ -88,6 +92,13 @@ public class FoodtruckDetailFragment extends Fragment implements View.OnClickLis
                             + "," + mFoodtruck.getLongitude()
                             + "?q=(" + mFoodtruck.getName() + ")"));
             startActivity(mapIntent);
+        }
+        if (v == mSaveFoodtruckButton) {
+            DatabaseReference foodtruckRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_FOODTRUCKS);
+            foodtruckRef.push().setValue(mFoodtruck);
+            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.epicodus.feedme.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,12 +22,15 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class FoodtruckListActivity extends AppCompatActivity {
-    public static final String TAG = FoodtruckListActivity.class.getSimpleName();
+//    private SharedPreferences mSharedPreferences;
+//    private String mRecentAddress;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
-    private FoodtruckListAdapter mAdapter;
 
-    public ArrayList<Foodtruck> foodtrucks = new ArrayList<>();
+    private FoodtruckListAdapter mAdapter;
+    public ArrayList<Foodtruck> mFoodtrucks = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,12 @@ public class FoodtruckListActivity extends AppCompatActivity {
         String location = intent.getStringExtra("location");
 
         getFoodtrucks(location);
+//            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//            mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
+//
+//            if (mRecentAddress != null) {
+//                getFoodtrucks(mRecentAddress);
+//            }
     }
 
     private void getFoodtrucks(String location) {
@@ -52,10 +62,11 @@ public class FoodtruckListActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response){
-                foodtrucks = yelpService.processResults(response);
+                mFoodtrucks = yelpService.processResults(response);
 
                 FoodtruckListActivity.this.runOnUiThread(new Runnable() {
                     @Override
+
                     public void run() {
                         mAdapter = new FoodtruckListAdapter(getApplicationContext(), foodtrucks);
                         mRecyclerView.setAdapter(mAdapter);

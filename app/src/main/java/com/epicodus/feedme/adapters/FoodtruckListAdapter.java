@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
 
 
 public class FoodtruckListAdapter extends RecyclerView.Adapter<FoodtruckListAdapter.FoodtruckViewHolder> {
+    private static final int MAX_WIDTH = 200;
+    private static final int MAX_HEIGHT = 200;
 
     private ArrayList<Foodtruck> mFoodtrucks = new ArrayList<>();
     private Context mContext;
@@ -66,7 +68,12 @@ public class FoodtruckListAdapter extends RecyclerView.Adapter<FoodtruckListAdap
         }
 
         public void bindFoodtruck(Foodtruck foodtruck) {
-            Picasso.with(mContext).load(foodtruck.getImageUrl()).into(mFoodtruckImageView);
+            Picasso.with(mContext)
+                    .load(foodtruck.getImageUrl())
+                    .resize(MAX_WIDTH, MAX_HEIGHT)
+                    .centerCrop()
+                    .into(mFoodtruckImageView);
+
             mNameTextView.setText(foodtruck.getName());
             mCategoryTextView.setText(foodtruck.getCategories().get(0));
             mRatingTextView.setText("Rating: " + foodtruck.getRating() + "/5");
