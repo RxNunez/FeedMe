@@ -13,7 +13,7 @@ import com.epicodus.feedme.Constants;
 import com.epicodus.feedme.R;
 import com.epicodus.feedme.models.Foodtruck;
 import com.epicodus.feedme.ui.FoodtruckDetailActivity;
-import com.epicodus.feedme.util.ItemTouchHelperViewHolder;
+//import com.epicodus.feedme.util.ItemTouchHelperViewHolder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

@@ -10,7 +10,13 @@ import android.widget.EditText;
 
 import android.widget.TextView;
 
+import com.epicodus.feedme.Constants;
 import com.epicodus.feedme.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -85,11 +91,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSearchedLocationReference.setValue(location);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mSearchedLocationReference.removeEventListener(mSearchedLocationReferenceListener);
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        mSearchedLocationReference.removeEventListener(mSearchedLocationReferenceListener);
+//    }
 //    private void addToSharedPreferences(String location) {
 //        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
 //    }

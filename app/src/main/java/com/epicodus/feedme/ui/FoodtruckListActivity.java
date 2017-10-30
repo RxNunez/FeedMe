@@ -65,10 +65,10 @@ public class FoodtruckListActivity extends AppCompatActivity {
                 mFoodtrucks = yelpService.processResults(response);
 
                 FoodtruckListActivity.this.runOnUiThread(new Runnable() {
-                    @Override
 
+                    @Override
                     public void run() {
-                        mAdapter = new FoodtruckListAdapter(getApplicationContext(), foodtrucks);
+                        mAdapter = new FoodtruckListAdapter(getApplicationContext(), mFoodtrucks);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager =
                                 new LinearLayoutManager(FoodtruckListActivity.this);
