@@ -37,6 +37,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .getInstance()
                 .getReference()
                 .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION);
+        mSearchedLocationReference.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot locationSnapshot : dataSnapshot.getChildren()) {
+                    String location = locationSnapshot.getValue().toString();
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -69,6 +83,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void saveLocationToFirebase(String location) {
         mSearchedLocationReference.setValue(location);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSearchedLocationReference.removeEventListener(mSearchedLocationReferenceListener);
     }
 //    private void addToSharedPreferences(String location) {
 //        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
