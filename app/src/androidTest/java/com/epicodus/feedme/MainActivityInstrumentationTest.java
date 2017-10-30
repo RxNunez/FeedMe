@@ -2,6 +2,8 @@ package com.epicodus.feedme;
 
 import android.support.test.rule.ActivityTestRule;
 
+import com.epicodus.feedme.ui.MainActivity;
+
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -20,16 +22,8 @@ public class MainActivityInstrumentationTest {
 
     @Test
     public void validateEditText() {
-        onView(withId(R.id.interestEditText)).perform(typeText("Hobby"))
-                .check(matches(withText("Hobby")));
-    }
-    @Test
-    public void interestIsSentToFeedMeActivity() {
-        String interest = "Hobby";
-        onView(withId(R.id.interestEditText)).perform(typeText(interest));
-        onView(withId(R.id.findInformationButton)).perform(click());
-        onView(withId(R.id.interestTextView)).check(matches
-                (withText("Here is all the information requested: " + interest)));
+        onView(withId(R.id.locationEditText)).perform(typeText("Food"))
+                .check(matches(withText("Food")));
     }
 
 }

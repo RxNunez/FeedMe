@@ -2,8 +2,9 @@ package com.epicodus.feedme;
 
 import android.content.Intent;
 import android.os.Build;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import com.epicodus.feedme.ui.MainActivity;
 
 import org.junit.Before;
 import org.junit.Test;
