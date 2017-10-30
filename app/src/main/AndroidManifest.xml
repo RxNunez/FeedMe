@@ -23,11 +23,13 @@
         <activity android:name=".ui.FoodtruckDetailActivity"></activity>
 
 
+
         <activity android:name=".ui.FoodtruckListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity"></meta-data>
         </activity>
+
     </application>
 
 </manifest>
