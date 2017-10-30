@@ -93,5 +93,12 @@ public class FoodtruckDetailFragment extends Fragment implements View.OnClickLis
                             + "?q=(" + mFoodtruck.getName() + ")"));
             startActivity(mapIntent);
         }
+        if (v == mSaveFoodtruckButton) {
+            DatabaseReference foodtruckRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_FOODTRUCKS);
+            foodtruckRef.push().setValue(mFoodtruck);
+            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+        }
     }
 }
