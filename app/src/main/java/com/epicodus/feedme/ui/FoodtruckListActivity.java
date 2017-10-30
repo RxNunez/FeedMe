@@ -22,19 +22,15 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class FoodtruckListActivity extends AppCompatActivity {
-    private SharedPreferences mSharedPreferences;
-    private String mRecentAddress;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-
-        public static final String TAG = FoodtruckListActivity.class.getSimpleName();
+//    private SharedPreferences mSharedPreferences;
+//    private String mRecentAddress;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
-    private FoodtruckListAdapter mAdapter;
 
+    private FoodtruckListAdapter mAdapter;
     public ArrayList<Foodtruck> mFoodtrucks = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +42,12 @@ public class FoodtruckListActivity extends AppCompatActivity {
         String location = intent.getStringExtra("location");
 
         getFoodtrucks(location);
-            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
-
-            if (mRecentAddress != null) {
-                getFoodtrucks(mRecentAddress);
-            }
+//            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//            mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
+//
+//            if (mRecentAddress != null) {
+//                getFoodtrucks(mRecentAddress);
+//            }
     }
 
     private void getFoodtrucks(String location) {
@@ -70,7 +66,7 @@ public class FoodtruckListActivity extends AppCompatActivity {
 
                 FoodtruckListActivity.this.runOnUiThread(new Runnable() {
                     @Override
-                }
+
                     public void run() {
                         mAdapter = new FoodtruckListAdapter(getApplicationContext(), foodtrucks);
                         mRecyclerView.setAdapter(mAdapter);
