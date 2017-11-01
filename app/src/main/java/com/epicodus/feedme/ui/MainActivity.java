@@ -1,7 +1,9 @@
 package com.epicodus.feedme.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -47,10 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .getInstance()
                 .getReference()
                 .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION);
-        mSearchedLocationReference.addValueEventListener(new ValueEventListener() {
+        mSearchedLocationReferenceListener = mSearchedLocationReference.addValueEventListener(new ValueEventListener() {
 
-        mSavedFoodtrucksButton.setOnClickListener(this);
-        }
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot locationSnapshot : dataSnapshot.getChildren()) {
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         mFindFoodtrucksButton.setOnClickListener(this);
+        mSavedFoodtrucksButton.setOnClickListener(this);
     }
 
     @Override
@@ -91,15 +92,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, FoodtruckListActivity.class);
             intent.putExtra("location", location);
             startActivity(intent);
-
+        }
             if (v == mSavedFoodtrucksButton) {
                 Intent intent = new Intent(MainActivity.this, SavedFoodtruckListActivity.class);
                 startActivity(intent);
             }
         }
-    }
-        }
-    }
+
     public void saveLocationToFirebase(String location) {
         mSearchedLocationReference.setValue(location);
     }
