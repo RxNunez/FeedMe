@@ -29,12 +29,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private DatabaseReference mSearchedLocationReference;
 
+    private ValueEventListener mSearchedLocationReferenceListener;
+
     @Bind(R.id.findFoodtrucksButton)
     Button mFindFoodtrucksButton;
     @Bind(R.id.locationEditText)
     EditText mLocationEditText;
     @Bind(R.id.appNameTextView)
     TextView mAppNameTextView;
+
+    @Bind(R.id.savedFoodtrucksButton) Button mSavedFoodtrucksButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION);
         mSearchedLocationReference.addValueEventListener(new ValueEventListener() {
 
+        mSavedFoodtrucksButton.setOnClickListener(this);
+        }
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot locationSnapshot : dataSnapshot.getChildren()) {
@@ -85,17 +91,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, FoodtruckListActivity.class);
             intent.putExtra("location", location);
             startActivity(intent);
+
+            if (v == mSavedFoodtrucksButton) {
+                Intent intent = new Intent(MainActivity.this, SavedFoodtruckListActivity.class);
+                startActivity(intent);
+            }
+        }
+    }
         }
     }
     public void saveLocationToFirebase(String location) {
         mSearchedLocationReference.setValue(location);
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        mSearchedLocationReference.removeEventListener(mSearchedLocationReferenceListener);
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSearchedLocationReference.removeEventListener(mSearchedLocationReferenceListener);
+    }
 //    private void addToSharedPreferences(String location) {
 //        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
 //    }
