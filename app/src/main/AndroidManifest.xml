@@ -12,9 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.MainActivity">
-
         </activity>
-
         <activity android:name=".ui.FoodtruckListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
