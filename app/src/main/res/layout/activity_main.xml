@@ -26,16 +26,16 @@
         android:textSize="60sp"
         android:textStyle="bold" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/locationEditText"
-        android:background="@color/colorTextIcons"
-        android:layout_above="@+id/findFoodtrucksButton"
-        android:layout_marginBottom="10dp"
-        android:padding="5dp"
-        android:hint="Enter Your Zip Code"
-        android:layout_centerHorizontal="true" />
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/locationEditText"-->
+        <!--android:background="@color/colorTextIcons"-->
+        <!--android:layout_above="@+id/findFoodtrucksButton"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:padding="5dp"-->
+        <!--android:hint="Enter Your Zip Code"-->
+        <!--android:layout_centerHorizontal="true" />-->
 
     <Button
         android:layout_width="match_parent"
