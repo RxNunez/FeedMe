@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.epicodus.feedme.Constants;
 import com.epicodus.feedme.R;
 import com.epicodus.feedme.models.Foodtruck;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -98,10 +100,19 @@ public class FoodtruckDetailFragment extends Fragment implements View.OnClickLis
             startActivity(mapIntent);
         }
         if (v == mSaveFoodtruckButton) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
+
             DatabaseReference foodtruckRef = FirebaseDatabase
                     .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_FOODTRUCKS);
-            foodtruckRef.push().setValue(mFoodtruck);
+                    .getReference(Constants.FIREBASE_CHILD_FOODTRUCKS)
+                    .child(uid);
+
+            DatabaseReference pushRef = foodtruckRef.push();
+            String pushId = pushRef.getKey();
+            mFoodtruck.setPushId(pushId);
+            pushRef.setValue(mFoodtruck);
+
             Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }

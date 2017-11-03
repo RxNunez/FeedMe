@@ -10,6 +10,8 @@ import com.epicodus.feedme.R;
 import com.epicodus.feedme.adapters.FirebaseFoodtruckViewHolder;
 import com.epicodus.feedme.models.Foodtruck;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,7 +31,14 @@ public class SavedFoodtruckListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed_me);
         ButterKnife.bind(this);
 
-        mFoodtruckReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_FOODTRUCKS);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        mFoodtruckReference = FirebaseDatabase
+                .getInstance()
+                .getReference(Constants.FIREBASE_CHILD_FOODTRUCKS)
+                .child(uid);
+
         setUpFirebaseAdapter();
     }
 

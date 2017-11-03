@@ -16,7 +16,7 @@ import com.epicodus.feedme.models.Foodtruck;
 import com.epicodus.feedme.ui.FoodtruckDetailActivity;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+
 import org.parceler.Parcels;
 
 import butterknife.Bind;
@@ -81,7 +81,6 @@ public class FoodtruckListAdapter extends RecyclerView.Adapter<FoodtruckListAdap
 
         @Override
         public void onClick(View v) {
-            Log.d("click listener", "working!");
             int itemPosition = getLayoutPosition();
             Intent intent = new Intent(mContext, FoodtruckDetailActivity.class);
             intent.putExtra("position", itemPosition + "");

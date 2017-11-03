@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public class FoodtruckPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Foodtruck> mFoodtrucks;
 
-    public FoodtruckPagerAdapter(FragmentManager fm, ArrayList<Foodtruck> restaurants) {
+    public FoodtruckPagerAdapter(FragmentManager fm, ArrayList<Foodtruck> foodtrucks) {
         super(fm);
-        mFoodtrucks = restaurants;
+        mFoodtrucks = foodtrucks;
     }
 
     @Override
@@ -29,6 +29,6 @@ public class FoodtruckPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mFoodtrucks.get(position).getName();
+       return mFoodtrucks.get(position).getName();
     }
 }
