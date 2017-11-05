@@ -1,7 +1,11 @@
 package com.epicodus.feedme.adapters;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
@@ -23,66 +27,81 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.epicodus.feedme.R.id.categoryTextView;
+import static com.epicodus.feedme.R.id.ratingTextView;
+import static com.epicodus.feedme.R.id.foodtruckImageView;
+import static com.epicodus.feedme.ui.FoodtruckDetailFragment.decodeFromFirebaseBase64;
 
 
-public class FirebaseFoodtruckViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+public class FirebaseFoodtruckViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
 
     View mView;
     Context mContext;
+    public ImageView mFoodtruckImageView;
 
     public FirebaseFoodtruckViewHolder(View itemView) {
         super(itemView);
         mView = itemView;
         mContext = itemView.getContext();
-        itemView.setOnClickListener(this);
+
     }
 
     public void bindFoodtruck(Foodtruck foodtruck) {
-        ImageView foodtruckImageView = (ImageView) mView.findViewById(R.id.foodtruckImageView);
-        TextView nameTextView = (TextView) mView.findViewById(R.id.foodtruckNameTextView);
-        TextView categoryTextView = (TextView) mView.findViewById(R.id.categoryTextView);
-        TextView ratingTextView = (TextView) mView.findViewById(R.id.ratingTextView);
+        mFoodtruckImageView = (ImageView) mView.findViewById(foodtruckImageView);
+        TextView mNameTextView = (TextView) mView.findViewById(R.id.foodtruckNameTextView);
+        TextView mCategoryTextView = (TextView) mView.findViewById(R.id.categoryTextView);
+        TextView mRatingTextView = (TextView) mView.findViewById(R.id.ratingTextView);
+
+        if (!foodtruck.getImageUrl().contains("http")) {
+            try {
+                Bitmap imageBitmap = decodeFromFirebaseBase64(foodtruck.getImageUrl());
+                mFoodtruckImageView.setImageBitmap(imageBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
 
         Picasso.with(mContext)
                 .load(foodtruck.getImageUrl())
                 .resize(MAX_WIDTH, MAX_HEIGHT)
                 .centerCrop()
-                .into(foodtruckImageView);
+                .into(mFoodtruckImageView);
 
-        nameTextView.setText(foodtruck.getName());
-        categoryTextView.setText(foodtruck.getCategories().get(0));
-        ratingTextView.setText("Rating: " + foodtruck.getRating() + "/5");
+        mNameTextView.setText(foodtruck.getName());
+        mCategoryTextView.setText(foodtruck.getCategories().get(0));
+        mRatingTextView.setText("Rating: " + foodtruck.getRating() + "/5");
+    }
+        mNameTextView.setText(foodtruck.getName());
+        mCategoryTextView.setText(foodtruck.getCategories().get(0));
+        mRatingTextView.setText("Rating: " + foodtruck.getRating() + "/5");
     }
 
     @Override
-    public void onClick(View view) {
-        final ArrayList<Foodtruck> foodtrucks = new ArrayList<>();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_FOODTRUCKS);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void onItemSelected() {
+        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(mContext,
+                R.animator.drag_scale_on);
+        set.setTarget(itemView);
+        set.start();
+    }
 
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    foodtrucks.add(snapshot.getValue(Foodtruck.class));
-                }
+    @Override
+    public void onItemClear() {
+        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(mContext,
+                R.animator.drag_scale_off);
+        set.setTarget(itemView);
+        set.start();
+    }
 
-                int itemPosition = getLayoutPosition();
-
-                Intent intent = new Intent(mContext, FoodtruckDetailActivity.class);
-                intent.putExtra("position", itemPosition + "");
-                intent.putExtra("foodtrucks", Parcels.wrap(foodtrucks));
-
-                mContext.startActivity(intent);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 }
+

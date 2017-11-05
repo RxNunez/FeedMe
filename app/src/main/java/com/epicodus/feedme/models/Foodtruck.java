@@ -8,15 +8,17 @@ import java.util.List;
 
 @Parcel
 public class Foodtruck {
-     String name;
-     String phone;
-     String website;
-     double rating;
-     String imageUrl;
-     ArrayList<String> address = new ArrayList<>();
-     double latitude;
-     double longitude;
-     ArrayList<String> categories = new ArrayList<>();
+    String name;
+    String phone;
+    String website;
+    double rating;
+    String imageUrl;
+    List<String> address = new ArrayList<>();
+    double latitude;
+    double longitude;
+    List<String> categories = new ArrayList<>();
+    private String pushId;
+    String index;
 
     public Foodtruck() {}
 
@@ -32,6 +34,7 @@ public class Foodtruck {
         this.latitude = latitude;
         this.longitude = longitude;
         this.categories = categories;
+        this.index = "not_specified";
     }
 
     public String getName() {
@@ -54,7 +57,7 @@ public class Foodtruck {
         return imageUrl;
     }
 
-    public ArrayList<String> getAddress() {
+    public List<String> getAddress() {
         return address;
     }
 
@@ -66,14 +69,27 @@ public class Foodtruck {
         return longitude;
     }
 
-    public ArrayList<String> getCategories() {
+    public List<String> getCategories() {
         return categories;
     }
 
-    public String getLargeImageUrl(String imageUrl) {
-        String largeImageUrl = imageUrl.substring(0, imageUrl.length() - 6).concat("o.jpg");
-        return largeImageUrl;
+
+    public String getPushId() {
+        return pushId;
     }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
+    }
+
 
 
 }
