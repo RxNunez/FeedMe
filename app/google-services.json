@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "565129935923-eietpcfujos261smnvgu9qabdvml6dr3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epicodus.feedme",
+            "certificate_hash": "73d1f15065a84385e01a2bf7e1a533fac79eb86f"
+          }
+        },
+        {
           "client_id": "565129935923-vn8q5n7sgujd5valafivuvm5bomdttme.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

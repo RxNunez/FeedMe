@@ -15,9 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:id="@+id/foodtruckImageView"
-            android:src="@drawable/food"
-            android:scaleType="centerCrop"
-            />
+            android:src="@drawable/background"
+            android:scaleType="centerCrop"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -90,8 +89,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    tools:ignore="RtlHardcoded"  />
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -104,8 +102,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    tools:ignore="RtlHardcoded"/>
+                    android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -118,8 +115,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
-                    android:gravity="center_vertical"
-                    tools:ignore="RtlHardcoded"/>
+                    android:gravity="center_vertical"/>
 
             </LinearLayout>
 
