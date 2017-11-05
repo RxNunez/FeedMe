@@ -23,17 +23,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final String TAG = LoginActivity.class.getSimpleName();
+
+    @Bind(R.id.passwordLoginButton) Button mPasswordLoginButton;
+    @Bind(R.id.emailEditText)    EditText mEmailEditText;
+    @Bind(R.id.passwordEditText) EditText mPasswordEditText;
     @Bind(R.id.registerTextView) TextView mRegisterTextView;
-//    public static final String TAG = LoginActivity.class.getSimpleName();
-//
-//    @Bind(R.id.passwordLoginButton) Button mPasswordLoginButton;
-//    @Bind(R.id.emailEditText)    EditText mEmailEditText;
-//    @Bind(R.id.passwordEditText) EditText mPasswordEditText;
-//    @Bind(R.id.registerTextView) TextView mRegisterTextView;
-//
-//    private FirebaseAuth mAuth;
-//    private FirebaseAuth.AuthStateListener mAuthListener;
-//    private ProgressDialog mAuthProgressDialog;
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private ProgressDialog mAuthProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,77 +40,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         ButterKnife.bind(this);
-//        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         mRegisterTextView.setOnClickListener(this);
-//        mPasswordLoginButton.setOnClickListener(this);
-//        createAuthProgressDialog();
-//
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                if (user != null) {
-//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    startActivity(intent);
-//                    finish();
-//                }
-//            }
-//
-//        };
-    }
+        mPasswordLoginButton.setOnClickListener(this);
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        mAuth.addAuthStateListener(mAuthListener);
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        if (mAuthListener != null) {
-//            mAuth.removeAuthStateListener(mAuthListener);
-//        }
-//    }
-//
-//    private void loginWithPassword() {
-//        String email = mEmailEditText.getText().toString().trim();
-//        String password = mPasswordEditText.getText().toString().trim();
-//
-//        if (email.equals("")) {
-//            mEmailEditText.setError("Please enter your email");
-//            return;
-//        }
-//
-//        if (password.equals("")) {
-//            mPasswordEditText.setError("Password cannot be blank");
-//            return;
-//        }
-//
-//        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-//                mAuthProgressDialog.dismiss();
-//
-//                if (!task.isSuccessful()) {
-//                    Log.w(TAG, "signInWithEmail", task.getException());
-//                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-//                            Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//    }
-//
-//    private void createAuthProgressDialog() {
-//        mAuthProgressDialog = new ProgressDialog(this);
-//        mAuthProgressDialog.setTitle("Loading...");
-//        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
-//        mAuthProgressDialog.setCancelable(false);
-//    }
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+        };
+        createAuthProgressDialog();
+    }
 
     @Override
     public void onClick(View view) {
@@ -120,9 +69,59 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
             finish();
         }
-//        if (view == mPasswordLoginButton) {
-//            loginWithPassword();
-//
-//        }
+
+        if (view == mPasswordLoginButton) {
+            loginWithPassword();
+        }
+    }
+
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
+    }
+
+    private void loginWithPassword() {
+        String email = mEmailEditText.getText().toString().trim();
+        String password = mPasswordEditText.getText().toString().trim();
+        if (email.equals("")) {
+            mEmailEditText.setError("Please enter your email");
+            return;
+        }
+        if (password.equals("")) {
+            mPasswordEditText.setError("Password cannot be blank");
+            return;
+        }
+        mAuthProgressDialog.show();
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        mAuthProgressDialog.dismiss();
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithEmail", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 }

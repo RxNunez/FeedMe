@@ -18,6 +18,7 @@ public class Foodtruck {
     double longitude;
     List<String> categories = new ArrayList<>();
     private String pushId;
+    String index;
 
     public Foodtruck() {}
 
@@ -33,6 +34,7 @@ public class Foodtruck {
         this.latitude = latitude;
         this.longitude = longitude;
         this.categories = categories;
+        this.index = "not_specified";
     }
 
     public String getName() {
@@ -71,18 +73,23 @@ public class Foodtruck {
         return categories;
     }
 
-//    public String getLargeImageUrl(String imageUrl) {
-//        String largeImageUrl = imageUrl.substring(0, imageUrl.length() - 6).concat("o.jpg");
-//        return largeImageUrl;
-//    }
-//
-//    public String getPushId() {
-//        return pushId;
-//    }
-//
-//    public void setPushId(String pushId) {
-//        this.pushId = pushId;
-//    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
+    }
+
 
 
 }

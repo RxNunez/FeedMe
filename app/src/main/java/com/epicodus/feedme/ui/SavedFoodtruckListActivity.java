@@ -31,13 +31,13 @@ public class SavedFoodtruckListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed_me);
         ButterKnife.bind(this);
 
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String uid = user.getUid();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
 
         mFoodtruckReference = FirebaseDatabase
                 .getInstance()
-                .getReference(Constants.FIREBASE_CHILD_FOODTRUCKS);
-//                .child(uid);
+                .getReference(Constants.FIREBASE_CHILD_FOODTRUCKS)
+                .child(uid);
 
         setUpFirebaseAdapter();
     }

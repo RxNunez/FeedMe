@@ -1,8 +1,12 @@
 package com.epicodus.feedme.adapters;
 
 import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,9 +15,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.epicodus.feedme.Constants;
 import com.epicodus.feedme.R;
 import com.epicodus.feedme.models.Foodtruck;
 import com.epicodus.feedme.ui.FoodtruckDetailActivity;
+import com.epicodus.feedme.ui.FoodtruckDetailFragment;
+import com.epicodus.feedme.util.OnFoodtruckSelectedListener;
 import com.squareup.picasso.Picasso;
 
 
@@ -29,16 +36,18 @@ public class FoodtruckListAdapter extends RecyclerView.Adapter<FoodtruckListAdap
 
     private ArrayList<Foodtruck> mFoodtrucks = new ArrayList<>();
     private Context mContext;
+    private OnFoodtruckSelectedListener mOnFoodtruckSelectedListener;
 
-    public FoodtruckListAdapter(Context context, ArrayList<Foodtruck> foodtrucks) {
+    public FoodtruckListAdapter(Context context, ArrayList<Foodtruck> foodtrucks, OnFoodtruckSelectedListener foodtruckSelectedListener) {
         mContext = context;
         mFoodtrucks = foodtrucks;
+        mOnFoodtruckSelectedListener = foodtruckSelectedListener;
     }
 
     @Override
     public FoodtruckListAdapter.FoodtruckViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.foodtruck_list_item, parent, false);
-        FoodtruckViewHolder viewHolder = new FoodtruckViewHolder(view);
+        FoodtruckViewHolder viewHolder = new FoodtruckViewHolder(view, mFoodtrucks, mOnFoodtruckSelectedListener);;
         return viewHolder;
     }
 
@@ -59,13 +68,30 @@ public class FoodtruckListAdapter extends RecyclerView.Adapter<FoodtruckListAdap
         @Bind(R.id.ratingTextView) TextView mRatingTextView;
 
         private Context mContext;
+        private int mOrientation;
+        private ArrayList<Foodtruck> mFoodtrucks = new ArrayList<>();
+        private OnFoodtruckSelectedListener mFoodtruckSelectedListener;
 
-        public FoodtruckViewHolder(View itemView) {
+        public FoodtruckViewHolder(View itemView, ArrayList<Foodtruck> foodtrucks, OnFoodtruckSelectedListener foodtruckSelectedListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
+            mOrientation = itemView.getResources().getConfiguration().orientation;
+            mFoodtrucks = foodtrucks;
+            mFoodtruckSelectedListener = foodtruckSelectedListener;
+
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE){
+                createDetailFragment(0);
+            }
+
             itemView.setOnClickListener(this);
+
+            mOrientation = itemView.getResources().getConfiguration().orientation;
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(0);
+            }
         }
+
 
         public void bindFoodtruck(Foodtruck foodtruck) {
             Picasso.with(mContext)
@@ -81,12 +107,25 @@ public class FoodtruckListAdapter extends RecyclerView.Adapter<FoodtruckListAdap
 
         @Override
         public void onClick(View v) {
-            Log.d("click listener", "working!");
             int itemPosition = getLayoutPosition();
+            mFoodtruckSelectedListener.onFoodtruckSelected(itemPosition, mFoodtrucks, Constants.SOURCE_FIND);
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(itemPosition);
+            } else {
             Intent intent = new Intent(mContext, FoodtruckDetailActivity.class);
-            intent.putExtra("position", itemPosition + "");
-            intent.putExtra("foodtrucks", Parcels.wrap(mFoodtrucks));
-            mContext.startActivity(intent);
+                intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+                intent.putExtra(Constants.EXTRA_KEY_FOODTRUCKS, Parcels.wrap(mFoodtrucks));
+                intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_FIND);
+                mContext.startActivity(intent);
+            }
         }
+
+        private void createDetailFragment(int position) {
+            FoodtruckDetailFragment detailFragment = FoodtruckDetailFragment.newInstance(mFoodtrucks, position, Constants.SOURCE_FIND);
+            FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.foodtruckDetailContainer, detailFragment);
+            ft.commit();
+        }
+
     }
 }

@@ -11,15 +11,17 @@ import java.util.ArrayList;
 
 public class FoodtruckPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Foodtruck> mFoodtrucks;
+    private String mSource;
 
-    public FoodtruckPagerAdapter(FragmentManager fm, ArrayList<Foodtruck> foodtrucks) {
+    public FoodtruckPagerAdapter(FragmentManager fm, ArrayList<Foodtruck> foodtrucks, String source) {
         super(fm);
         mFoodtrucks = foodtrucks;
+        mSource = source;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return FoodtruckDetailFragment.newInstance(mFoodtrucks.get(position));
+        return FoodtruckDetailFragment.newInstance(mFoodtrucks, position, mSource);
     }
 
     @Override
