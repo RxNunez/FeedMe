@@ -71,18 +71,18 @@ public class Foodtruck {
         return categories;
     }
 
-    public String getLargeImageUrl(String imageUrl) {
-        String largeImageUrl = imageUrl.substring(0, imageUrl.length() - 6).concat("o.jpg");
-        return largeImageUrl;
-    }
-
-    public String getPushId() {
-        return pushId;
-    }
-
-    public void setPushId(String pushId) {
-        this.pushId = pushId;
-    }
+//    public String getLargeImageUrl(String imageUrl) {
+//        String largeImageUrl = imageUrl.substring(0, imageUrl.length() - 6).concat("o.jpg");
+//        return largeImageUrl;
+//    }
+//
+//    public String getPushId() {
+//        return pushId;
+//    }
+//
+//    public void setPushId(String pushId) {
+//        this.pushId = pushId;
+//    }
 
 
 }

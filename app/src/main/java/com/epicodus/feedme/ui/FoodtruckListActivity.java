@@ -36,7 +36,7 @@ public class FoodtruckListActivity extends AppCompatActivity {
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
     private FoodtruckListAdapter mAdapter;
-    public ArrayList<Foodtruck> mFoodtrucks = new ArrayList<>();
+    public ArrayList<Foodtruck> foodtrucks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,14 +104,14 @@ public class FoodtruckListActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response){
-                mFoodtrucks = yelpService.processResults(response);
+                foodtrucks = yelpService.processResults(response);
 
                 FoodtruckListActivity.this.runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
 
-                        mAdapter = new FoodtruckListAdapter(getApplicationContext(), mFoodtrucks);
+                        mAdapter = new FoodtruckListAdapter(getApplicationContext(), foodtrucks);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager =
                                 new LinearLayoutManager(FoodtruckListActivity.this);

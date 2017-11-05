@@ -44,27 +44,27 @@ public class YelpService {
             JSONObject yelpJSON = new JSONObject(jsonData);
             JSONArray businessesJSON = yelpJSON.getJSONArray("businesses");
             for (int i = 0; i < businessesJSON.length(); i++) {
-                JSONObject foodtruckJSON = businessesJSON.getJSONObject(i);
-                String name = foodtruckJSON.getString("name");
-                String phone = foodtruckJSON.optString("display_phone", "Phone not available");
-                String website = foodtruckJSON.getString("url");
-                double rating = foodtruckJSON.getDouble("rating");
+                JSONObject restaurantJSON = businessesJSON.getJSONObject(i);
+                String name = restaurantJSON.getString("name");
+                String phone = restaurantJSON.optString("display_phone", "Phone not available");
+                String website = restaurantJSON.getString("url");
+                double rating = restaurantJSON.getDouble("rating");
 
-                String imageUrl = foodtruckJSON.getString("image_url");
+                String imageUrl = restaurantJSON.getString("image_url");
 
-                double latitude = (double) foodtruckJSON.getJSONObject("coordinates").getDouble("latitude");
+                double latitude = (double) restaurantJSON.getJSONObject("coordinates").getDouble("latitude");
 
-                double longitude = (double) foodtruckJSON.getJSONObject("coordinates").getDouble("longitude");
+                double longitude = (double) restaurantJSON.getJSONObject("coordinates").getDouble("longitude");
 
                 ArrayList<String> address = new ArrayList<>();
-                JSONArray addressJSON = foodtruckJSON.getJSONObject("location")
+                JSONArray addressJSON = restaurantJSON.getJSONObject("location")
                         .getJSONArray("display_address");
                 for (int y = 0; y < addressJSON.length(); y++) {
                     address.add(addressJSON.get(y).toString());
                 }
 
                 ArrayList<String> categories = new ArrayList<>();
-                JSONArray categoriesJSON = foodtruckJSON.getJSONArray("categories");
+                JSONArray categoriesJSON = restaurantJSON.getJSONArray("categories");
 
                 for (int y = 0; y < categoriesJSON.length(); y++) {
                     categories.add(categoriesJSON.getJSONObject(y).getString("title"));

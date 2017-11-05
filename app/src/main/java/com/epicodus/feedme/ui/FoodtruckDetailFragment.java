@@ -100,19 +100,19 @@ public class FoodtruckDetailFragment extends Fragment implements View.OnClickLis
             startActivity(mapIntent);
         }
         if (v == mSaveFoodtruckButton) {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            String uid = user.getUid();
+//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//            String uid = user.getUid();
 
             DatabaseReference foodtruckRef = FirebaseDatabase
                     .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_FOODTRUCKS)
-                    .child(uid);
+                    .getReference(Constants.FIREBASE_CHILD_FOODTRUCKS);
+//                    .child(uid);
 
-            DatabaseReference pushRef = foodtruckRef.push();
-            String pushId = pushRef.getKey();
-            mFoodtruck.setPushId(pushId);
-            pushRef.setValue(mFoodtruck);
-
+//            DatabaseReference pushRef = foodtruckRef.push();
+//            String pushId = pushRef.getKey();
+//            mFoodtruck.setPushId(pushId);
+//            pushRef.setValue(mFoodtruck);
+            foodtruckRef.push().setValue(mFoodtruck);
             Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }
