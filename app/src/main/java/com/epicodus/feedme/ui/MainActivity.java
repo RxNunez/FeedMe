@@ -33,10 +33,9 @@ import butterknife.ButterKnife;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    @Bind(R.id.appNameTextView) TextView mAppNameTextView;
 
     @Bind(R.id.findFoodtrucksButton) Button mFindFoodtrucksButton;
-
-    @Bind(R.id.appNameTextView) TextView mAppNameTextView;
 
     @Bind(R.id.savedFoodtrucksButton) Button mSavedFoodtrucksButton;
 

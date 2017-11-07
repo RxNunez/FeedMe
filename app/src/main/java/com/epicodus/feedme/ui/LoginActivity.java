@@ -25,10 +25,14 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = LoginActivity.class.getSimpleName();
 
-    @Bind(R.id.passwordLoginButton) Button mPasswordLoginButton;
-    @Bind(R.id.emailEditText)    EditText mEmailEditText;
-    @Bind(R.id.passwordEditText) EditText mPasswordEditText;
-    @Bind(R.id.registerTextView) TextView mRegisterTextView;
+    @Bind(R.id.passwordLoginButton)
+    Button mPasswordLoginButton;
+    @Bind(R.id.emailEditText)
+    EditText mEmailEditText;
+    @Bind(R.id.passwordEditText)
+    EditText mPasswordEditText;
+    @Bind(R.id.registerTextView)
+    TextView mRegisterTextView;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -59,27 +63,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
         };
-        createAuthProgressDialog();
+
     }
 
     @Override
-    public void onClick(View view) {
-        if (view == mRegisterTextView) {
-            Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-        if (view == mPasswordLoginButton) {
-            loginWithPassword();
-        }
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
-    private void createAuthProgressDialog() {
-        mAuthProgressDialog = new ProgressDialog(this);
-        mAuthProgressDialog.setTitle("Loading...");
-        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
-        mAuthProgressDialog.setCancelable(false);
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     private void loginWithPassword() {
@@ -111,17 +109,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+    public void onClick(View view) {
+        if (view == mRegisterTextView) {
+            Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        if (view == mPasswordLoginButton) {
+            loginWithPassword();
         }
     }
 }
+
+
+
+
+
+
+
+
