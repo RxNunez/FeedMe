@@ -149,7 +149,7 @@ public class FoodtruckDetailFragment extends Fragment implements View.OnClickLis
             String pushId = pushRef.getKey();
             mFoodtruck.setPushId(pushId);
             pushRef.setValue(mFoodtruck);
-            foodtruckRef.push().setValue(mFoodtruck);
+
             Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }
