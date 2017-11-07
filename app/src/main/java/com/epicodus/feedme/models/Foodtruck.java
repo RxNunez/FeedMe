@@ -73,7 +73,6 @@ public class Foodtruck {
         return categories;
     }
 
-
     public String getPushId() {
         return pushId;
     }
