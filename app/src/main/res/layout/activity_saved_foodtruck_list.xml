@@ -6,7 +6,7 @@
     tools:context=".ui.FoodtruckListActivity">
 
     <fragment
-        android:id="@+id/fragmentRestaurantList"
+        android:id="@+id/fragmentFoodtruckList"
         android:name="com.epicodus.feedme.ui.SavedFoodtruckListFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
